@@ -1,6 +1,10 @@
 package project.Entity;
 
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Profiles")
@@ -14,6 +18,12 @@ public class Profile {
     private String organ;
     private String quantity;
     private String note;
+
+    @CreatedDate
+    private LocalDateTime created_at;
+
+    @LastModifiedDate
+    private LocalDateTime updated_at;
 
     public Profile(String _id, String title, String content, String type, 
             String published_date, String organ, String quantity, String note) {
@@ -92,6 +102,14 @@ public class Profile {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
+
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
     }
 
 }
