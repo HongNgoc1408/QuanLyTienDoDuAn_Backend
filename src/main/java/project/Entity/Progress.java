@@ -1,6 +1,7 @@
 package project.Entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -13,7 +14,7 @@ public class Progress {
     private String _id;
     private String title;
     private String description;
-    private String assigned_to;
+    private List<String> id_user;
     private String status;
     private String priority;
     private String start_date;
@@ -25,11 +26,11 @@ public class Progress {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Progress(String _id, String title, String description, String assigned_to, String status, String priority, String start_date, String end_date) {
+    public Progress(String _id, String title, String description, List<String> id_user, String status, String priority, String start_date, String end_date) {
         this._id = _id;
         this.title = title;
         this.description = description;
-        this.assigned_to = assigned_to;
+        this.id_user = id_user;
         this.status = status;
         this.priority = priority;
         this.start_date = start_date;
@@ -64,12 +65,12 @@ public class Progress {
         this.description = description;
     }
 
-    public String getAssigned_to() {
-        return assigned_to;
+    public List<String> getAssigned_to() {
+        return id_user;
     }
 
-    public void setAssigned_to(String assigned_to) {
-        this.assigned_to = assigned_to;
+    public void setAssigned_to(List<String> id_user) {
+        this.id_user = id_user;
     }
 
     public String getStatus() {
@@ -118,7 +119,7 @@ public class Progress {
                 "_id='" + _id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", assigned_to='" + assigned_to + '\'' + 
+                ", assigned_to='" + id_user + '\'' + 
                 ", status='" + status + '\'' + 
                 ", priority='" + priority + '\'' +
                 ", start_date='" + start_date + '\'' +
