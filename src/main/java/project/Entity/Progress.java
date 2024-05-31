@@ -1,8 +1,11 @@
 package project.Entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection ="Progresses")
@@ -11,15 +14,19 @@ public class Progress {
     private String _id;
     private String title;
     private String description;
-    private String assigned_to;
+    private List<String> assigned_to;
     private String status;
     private String priority;
     private String start_date;
     private String end_date;
+
+    @CreatedDate
     private LocalDateTime created_at;
+
+    @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Progress(String _id, String title, String description, String assigned_to, String status, String priority, String start_date, String end_date, LocalDateTime created_at, LocalDateTime updated_at ) {
+    public Progress(String _id, String title, String description, List<String> assigned_to, String status, String priority, String start_date, String end_date) {
         this._id = _id;
         this.title = title;
         this.description = description;
@@ -28,8 +35,6 @@ public class Progress {
         this.priority = priority;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
 
@@ -60,11 +65,11 @@ public class Progress {
         this.description = description;
     }
 
-    public String getAssigned_to() {
+    public List<String> getAssigned_to() {
         return assigned_to;
     }
 
-    public void setAssigned_to(String assigned_to) {
+    public void setAssigned_to(List<String> assigned_to) {
         this.assigned_to = assigned_to;
     }
 
@@ -104,18 +109,10 @@ public class Progress {
         return created_at;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
-    }
-
     public LocalDateTime getUpdated_at() {
         return updated_at;
     }
-
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
-    }
-
+    
     @Override
     public String toString() {
         return "Progress{" +
