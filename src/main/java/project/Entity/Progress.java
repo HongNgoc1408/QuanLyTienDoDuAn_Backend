@@ -14,7 +14,7 @@ public class Progress {
     private String _id;
     private String title;
     private String description;
-    private List<String> id_user;
+    private List<String> assigned_to;
     private String status;
     private String priority;
     private String start_date;
@@ -26,11 +26,11 @@ public class Progress {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Progress(String _id, String title, String description, List<String> id_user, String status, String priority, String start_date, String end_date) {
+    public Progress(String _id, String title, String description, List<String> assigned_to, String status, String priority, String start_date, String end_date) {
         this._id = _id;
         this.title = title;
         this.description = description;
-        this.id_user = id_user;
+        this.assigned_to = assigned_to;
         this.status = status;
         this.priority = priority;
         this.start_date = start_date;
@@ -66,11 +66,11 @@ public class Progress {
     }
 
     public List<String> getAssigned_to() {
-        return id_user;
+        return assigned_to;
     }
 
-    public void setAssigned_to(List<String> id_user) {
-        this.id_user = id_user;
+    public void setAssigned_to(List<String> assigned_to) {
+        this.assigned_to = assigned_to;
     }
 
     public String getStatus() {
@@ -119,7 +119,7 @@ public class Progress {
                 "_id='" + _id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", assigned_to='" + id_user + '\'' + 
+                ", assigned_to='" + assigned_to + '\'' + 
                 ", status='" + status + '\'' + 
                 ", priority='" + priority + '\'' +
                 ", start_date='" + start_date + '\'' +
