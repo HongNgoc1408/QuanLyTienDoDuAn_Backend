@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import project.Entity.Student;
 import project.Service.StudentServices;
 
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/v1/student")
@@ -46,7 +45,6 @@ public class StudentController {
     private void deleteStudent(@PathVariable("id") String _id) {
         studentServices.deleteStudent(_id);
     }
-
 
     @RequestMapping("/search/{id}")
     private Student getStudents(@PathVariable(name = "id") String studentid) {
