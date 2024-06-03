@@ -1,6 +1,9 @@
 package project.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,4 +53,20 @@ public class UserController {
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
     }
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getUserCount() {
+        long count = mongoTemplate.count(new Query(), User.class, "User");
+        return ResponseEntity.ok(count);
+    }
+
+    @PostMapping("/check")
+    public ResponseEntity<Boolean> checkUserExistence(@RequestBody User user) {
+        boolean isExisting = userService.checkUserExistence(user);
+        return ResponseEntity.ok(isExisting);
+    }
+
 }

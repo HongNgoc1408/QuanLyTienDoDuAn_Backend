@@ -1,6 +1,9 @@
 package project.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import project.Entity.User;
@@ -26,5 +29,17 @@ public class UserService {
 
     public User getUserById(String id) {
         return repo.findById(id).orElse(null);
+    }
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    public boolean checkUserExistence(User user) {
+        Query query = new Query();
+        query.addCriteria(
+                new Criteria().orOperator(
+                        Criteria.where("username").is(user.getUsername()),
+                        Criteria.where("email").is(user.getEmail())));
+        return mongoTemplate.exists(query, User.class);
     }
 }
