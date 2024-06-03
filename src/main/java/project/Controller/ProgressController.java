@@ -34,6 +34,11 @@ public class ProgressController {
         return progressServices.listAll();
     }
 
+    @GetMapping(value = "/get/{id}")
+    private Progress getProgressById(@PathVariable(name = "id") String _id) {
+        return progressServices.getProgressByID(_id);
+    }
+
     @PutMapping(value = "/edit/{id}")
     private Progress update(@RequestBody Progress progress, @PathVariable(name = "id") String _id) {
         progress.set_id(_id);
