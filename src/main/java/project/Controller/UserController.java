@@ -35,7 +35,7 @@ public class UserController {
         return userService.listAll();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/edit/{id}")
     public void updateUser(@PathVariable String id, @RequestBody User user) {
         User existingUser = userService.getUserById(id);
         if (existingUser != null) {
@@ -44,7 +44,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public User getUserById(@PathVariable String id) {
         return userService.getUserById(id);
     }

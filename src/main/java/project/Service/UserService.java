@@ -39,7 +39,9 @@ public class UserService {
         query.addCriteria(
                 new Criteria().orOperator(
                         Criteria.where("username").is(user.getUsername()),
-                        Criteria.where("email").is(user.getEmail())));
+                        Criteria.where("email").is(user.getEmail()),
+                        Criteria.where("id_user").is(user.getId_user()),
+                        Criteria.where("fullname").is(user.getFullName())));
         return mongoTemplate.exists(query, User.class);
     }
 }
