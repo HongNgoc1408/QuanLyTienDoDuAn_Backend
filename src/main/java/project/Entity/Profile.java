@@ -1,6 +1,7 @@
 package project.Entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -16,7 +17,10 @@ public class Profile {
     private String type;
     private String published_date;
     private String organ;
-    private String quantity;
+    // private String quantity;
+    private String original;
+    private String offical;
+    private String photo;
     private String note;
 
     @CreatedDate
@@ -26,14 +30,17 @@ public class Profile {
     private LocalDateTime updated_at;
 
     public Profile(String _id, String title, String content, String type, 
-            String published_date, String organ, String quantity, String note) {
+            String published_date, String organ, String original,String offical,String photo, String note) {
         this._id = _id;
         this.title = title;
         this.content = content;
         this.type = type;
         this.published_date = published_date;
         this.organ = organ;
-        this.quantity = quantity;
+        // this.quantity = quantity;
+        this.original = original;
+        this.offical = offical;
+        this.photo = photo;
         this.note = note;
     }
 
@@ -88,12 +95,35 @@ public class Profile {
         this.organ = organ;
     }
 
-    public String getQuantity() {
-        return quantity;
+    // public String getQuantity() {
+    //     return quantity;
+    // }
+
+    // public void setQuantity(String quantity) {
+    //     this.quantity = quantity;
+    // }
+    public String getOriginal() {
+        return original;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setOriginal(String original) {
+        this.original = original;
+    }   
+
+    public String getOffical() {
+        return offical;
+    }
+
+    public void setOffical(String offical) {
+        this.offical = offical;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getNote() {
@@ -110,6 +140,16 @@ public class Profile {
 
     public LocalDateTime getUpdated_at() {
         return updated_at;
+    }
+
+    public String getFormattedCreatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return created_at.format(formatter);
+    }
+
+    public String getFormattedUpdatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return updated_at.format(formatter);
     }
 
 }
