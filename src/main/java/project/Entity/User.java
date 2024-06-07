@@ -17,6 +17,7 @@ public class User {
     private String id_user;
     private String email;
     private String fullName;
+    private Boolean isAdmin;
 
     @CreatedDate
     private LocalDateTime created_at;
@@ -24,14 +25,19 @@ public class User {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    // Constructors, getters and setters
-    public User(String _id, String username, String password, String id_user, String email, String fullName) {
+    public User() {
+        this.isAdmin = false;
+    }
+
+    public User(String _id, String username, String password, String id_user, String email, String fullName,
+            Boolean isAdmin) {
         this._id = _id;
         this.username = username;
         this.password = password;
         this.id_user = id_user;
         this.email = email;
         this.fullName = fullName;
+        this.isAdmin = isAdmin != null ? isAdmin : false;
     }
 
     public String get_id() {
@@ -88,6 +94,14 @@ public class User {
 
     public LocalDateTime getUpdated_at() {
         return updated_at;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getFormattedCreatedAt() {

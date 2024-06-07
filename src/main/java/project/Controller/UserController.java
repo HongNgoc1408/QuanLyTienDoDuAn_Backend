@@ -3,6 +3,7 @@ package project.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.Entity.User;
+import project.Repo.UserRepo;
 import project.Service.UserService;
 
 @RestController
@@ -25,9 +27,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepo userRepository;
+
     @PostMapping("/add")
-    public void addUser(@RequestBody User user) {
+    public ResponseEntity<String> addUser(@RequestBody User user) {
         userService.saveOrUpdate(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
     }
 
     @GetMapping("/all")
@@ -36,22 +42,31 @@ public class UserController {
     }
 
     @PutMapping("/edit/{id}")
-    public void updateUser(@PathVariable String id, @RequestBody User user) {
+    public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User user) {
         User existingUser = userService.getUserById(id);
         if (existingUser != null) {
             user.set_id(id); // Ensure the ID remains the same
             userService.saveOrUpdate(user);
+            return ResponseEntity.ok("User updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
 
     @GetMapping("/get/{id}")
-    public User getUserById(@PathVariable String id) {
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
+        User user = userService.getUserById(id);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable String id) {
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 
     @Autowired
@@ -69,4 +84,16 @@ public class UserController {
         return ResponseEntity.ok(isExisting);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user) {
+        User foundUser = userRepository.findByUsername(user.getUsername());
+        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+            if (foundUser.getIsAdmin()) {
+                return ResponseEntity.ok("admin");
+            } else {
+                return ResponseEntity.ok("employee");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    }
 }
