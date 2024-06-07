@@ -24,10 +24,11 @@ public class ProfileController {
         return profileService.listAll();
     }
 
-    @GetMapping("/get/{id}")
-    public Profile getProfileById(@PathVariable String id) {
-        return profileService.getProfileById(id);
+    @GetMapping(value = "/get/{id}")
+    private Profile getProfileById(@PathVariable(name = "id") String _id) {
+        return profileService.getProfileById(_id);
     }
+
 
     @PutMapping("/edit/{id}")
     public void updateProfile(@PathVariable String id, @RequestBody Profile profile) {
