@@ -15,6 +15,9 @@ public class UserService {
     @Autowired
     private UserRepo repo;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
     public void saveOrUpdate(User user) {
         repo.save(user);
     }
@@ -31,17 +34,21 @@ public class UserService {
         return repo.findById(id).orElse(null);
     }
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
-
-    public boolean checkUserExistence(User user) {
+    public boolean checkUsernameExistence(String username) {
         Query query = new Query();
-        query.addCriteria(
-                new Criteria().orOperator(
-                        Criteria.where("username").is(user.getUsername()),
-                        Criteria.where("email").is(user.getEmail()),
-                        Criteria.where("id_user").is(user.getId_user()),
-                        Criteria.where("fullname").is(user.getFullName())));
+        query.addCriteria(Criteria.where("username").is(username));
+        return mongoTemplate.exists(query, User.class);
+    }
+
+    public boolean checkEmailExistence(String email) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+        return mongoTemplate.exists(query, User.class);
+    }
+
+    public boolean checkUserIdExistence(String userId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id_user").is(userId));
         return mongoTemplate.exists(query, User.class);
     }
 }

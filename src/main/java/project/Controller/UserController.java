@@ -1,5 +1,7 @@
 package project.Controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -78,9 +80,24 @@ public class UserController {
         return ResponseEntity.ok(count);
     }
 
-    @PostMapping("/check")
-    public ResponseEntity<Boolean> checkUserExistence(@RequestBody User user) {
-        boolean isExisting = userService.checkUserExistence(user);
+    @PostMapping("/check/username")
+    public ResponseEntity<Boolean> checkUsernameExistence(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        boolean isExisting = userService.checkUsernameExistence(username);
+        return ResponseEntity.ok(isExisting);
+    }
+
+    @PostMapping("/check/email")
+    public ResponseEntity<Boolean> checkEmailExistence(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        boolean isExisting = userService.checkEmailExistence(email);
+        return ResponseEntity.ok(isExisting);
+    }
+
+    @PostMapping("/check/id")
+    public ResponseEntity<Boolean> checkUserIdExistence(@RequestBody Map<String, String> request) {
+        String userId = request.get("id_user");
+        boolean isExisting = userService.checkUserIdExistence(userId);
         return ResponseEntity.ok(isExisting);
     }
 
