@@ -1,6 +1,7 @@
 package project.Entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -113,6 +114,16 @@ public class Progress {
         return updated_at;
     }
     
+    public String getFormattedCreatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return created_at.format(formatter);
+    }
+
+    public String getFormattedUpdatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return updated_at.format(formatter);
+    }
+
     @Override
     public String toString() {
         return "Progress{" +
