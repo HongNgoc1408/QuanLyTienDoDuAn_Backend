@@ -22,6 +22,8 @@ public class Profile {
     private String offical;
     private String photo;
     private String note;
+    private String pdfFileId;
+
 
     @CreatedDate
     private LocalDateTime created_at;
@@ -30,7 +32,8 @@ public class Profile {
     private LocalDateTime updated_at;
 
     public Profile(String _id, String title, String content, String type, 
-            String published_date, String organ, String original,String offical,String photo, String note) {
+            String published_date, String organ, String original,String offical,String photo, String note, 
+            String pdfFileId) {
         this._id = _id;
         this.title = title;
         this.content = content;
@@ -42,6 +45,7 @@ public class Profile {
         this.offical = offical;
         this.photo = photo;
         this.note = note;
+        this.pdfFileId = pdfFileId;
     }
 
     public Profile() {
@@ -150,6 +154,14 @@ public class Profile {
     public String getFormattedUpdatedAt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return updated_at.format(formatter);
+    }
+
+    public String getPdfFileId() {
+        return pdfFileId;
+    }
+
+    public void setPdfFileId(String pdfFileId) {
+        this.pdfFileId = pdfFileId;
     }
 
 }
