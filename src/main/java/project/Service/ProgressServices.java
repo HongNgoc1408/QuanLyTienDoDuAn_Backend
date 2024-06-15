@@ -1,5 +1,7 @@
 package project.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,9 @@ public class ProgressServices {
     public Progress getProgressByID(String _id) {
 
         return repo.findById(_id).get();
+    }
+
+    public List<Progress> getProgressByUserId(String userId) {
+        return repo.findByAssignedToContaining(userId);
     }
 }

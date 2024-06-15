@@ -9,13 +9,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection ="Progresses")
+@Document(collection = "Progresses")
 public class Progress {
     @Id
     private String _id;
     private String title;
     private String description;
-    private List<String> assigned_to;
+    private List<String> assignedTo;
     private String status;
     private String priority;
     private String start_date;
@@ -27,17 +27,17 @@ public class Progress {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Progress(String _id, String title, String description, List<String> assigned_to, String status, String priority, String start_date, String end_date) {
+    public Progress(String _id, String title, String description, List<String> assignedTo, String status,
+            String priority, String start_date, String end_date) {
         this._id = _id;
         this.title = title;
         this.description = description;
-        this.assigned_to = assigned_to;
+        this.assignedTo = assignedTo;
         this.status = status;
         this.priority = priority;
         this.start_date = start_date;
         this.end_date = end_date;
     }
-
 
     public Progress() {
     }
@@ -66,12 +66,12 @@ public class Progress {
         this.description = description;
     }
 
-    public List<String> getAssigned_to() {
-        return assigned_to;
+    public List<String> getassignedTo() {
+        return assignedTo;
     }
 
-    public void setAssigned_to(List<String> assigned_to) {
-        this.assigned_to = assigned_to;
+    public void setassignedTo(List<String> assignedTo) {
+        this.assignedTo = assignedTo;
     }
 
     public String getStatus() {
@@ -105,7 +105,7 @@ public class Progress {
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
     }
-    
+
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -113,7 +113,7 @@ public class Progress {
     public LocalDateTime getUpdated_at() {
         return updated_at;
     }
-    
+
     public String getFormattedCreatedAt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return created_at.format(formatter);
@@ -130,8 +130,8 @@ public class Progress {
                 "_id='" + _id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", assigned_to='" + assigned_to + '\'' + 
-                ", status='" + status + '\'' + 
+                ", assignedTo='" + assignedTo + '\'' +
+                ", status='" + status + '\'' +
                 ", priority='" + priority + '\'' +
                 ", start_date='" + start_date + '\'' +
                 ", end_date='" + end_date + '\'' +

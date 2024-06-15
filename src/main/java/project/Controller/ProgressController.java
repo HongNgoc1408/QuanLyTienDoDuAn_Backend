@@ -1,5 +1,7 @@
 package project.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,9 +53,13 @@ public class ProgressController {
         progressServices.deleteProgress(_id);
     }
 
-
     @RequestMapping("/search/{id}")
     private Progress getProgresses(@PathVariable(name = "id") String _id) {
         return progressServices.getProgressByID(_id);
+    }
+
+    @GetMapping(value = "/user/{userId}")
+    public List<Progress> getProgressByUserId(@PathVariable(name = "userId") String userId) {
+        return progressServices.getProgressByUserId(userId);
     }
 }
