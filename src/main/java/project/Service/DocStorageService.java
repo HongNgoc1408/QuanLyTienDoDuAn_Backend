@@ -55,10 +55,10 @@ public class DocStorageService {
             Doc doc = new Doc();
             doc.setDocname(file.getOriginalFilename());
             doc.setContentType(file.getContentType());
-            doc.setData(file.getBytes()); // Save raw bytes
+            doc.setData(file.getBytes());
             docRepository.save(doc);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
