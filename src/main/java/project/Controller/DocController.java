@@ -37,13 +37,6 @@ public class DocController {
         return ResponseEntity.ok(uploadedDocs);
     }
 
-    // @PostMapping("/uploadFiles")
-    // public ResponseEntity<String> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-    //     for (MultipartFile file : files) {
-    //         docStorageService.saveFile(file);
-    //     }
-    //     return ResponseEntity.ok("Files uploaded successfully");
-    // }
     @GetMapping("/files")
     public ResponseEntity<List<Doc>> getFiles() {
         List<Doc> docs = docStorageService.getFiles();
