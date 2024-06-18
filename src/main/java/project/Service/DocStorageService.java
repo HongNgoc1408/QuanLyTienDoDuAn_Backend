@@ -25,7 +25,7 @@ public class DocStorageService {
             doc.setData(file.getBytes());
             docRepository.save(doc);
         } catch (IOException e) {
-          throw new RuntimeException("Error saving file", e);
+            throw new RuntimeException("Error saving file", e);
         }
     }
 
@@ -35,5 +35,13 @@ public class DocStorageService {
 
     public Optional<Doc> getFile(String id) {
         return docRepository.findById(id);
+    }
+
+    public void deleteDoc(String id) {
+        if (docRepository.existsById(id)) {
+            docRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Document with id " + id + " not found");
+        }
     }
 }

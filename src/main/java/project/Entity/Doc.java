@@ -1,7 +1,11 @@
 package project.Entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Docs")
@@ -13,8 +17,14 @@ public class Doc {
     private String contentType;
     private byte[] data;
 
+    @CreatedDate
+    private LocalDateTime created_at;
 
-    public Doc() {}
+    @LastModifiedDate
+    private LocalDateTime updated_at;
+
+    public Doc() {
+    }
 
     public Doc(String _id, String docname, String contentType, byte[] data) {
         this._id = _id;
@@ -53,5 +63,23 @@ public class Doc {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
+
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
+    }
+
+    public String getFormattedCreatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+        return created_at.format(formatter);
+    }
+
+    public String getFormattedUpdatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+        return updated_at.format(formatter);
     }
 }
