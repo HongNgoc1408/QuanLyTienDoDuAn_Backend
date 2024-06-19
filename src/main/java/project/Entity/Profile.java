@@ -2,6 +2,7 @@ package project.Entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Profiles")
 public class Profile {
+
     @Id
     private String _id;
     private String title;
@@ -22,8 +24,7 @@ public class Profile {
     private String offical;
     private String photo;
     private String note;
-    private String pdfFileId;
-
+    private List<String> fileId;
 
     @CreatedDate
     private LocalDateTime created_at;
@@ -31,9 +32,9 @@ public class Profile {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Profile(String _id, String title, String content, String type, 
-            String published_date, String organ, String original,String offical,String photo, String note, 
-            String pdfFileId) {
+    public Profile(String _id, String title, String content, String type,
+            String published_date, String organ, String original, String offical, String photo, String note,
+            List<String> fileId) {
         this._id = _id;
         this.title = title;
         this.content = content;
@@ -45,7 +46,7 @@ public class Profile {
         this.offical = offical;
         this.photo = photo;
         this.note = note;
-        this.pdfFileId = pdfFileId;
+        this.fileId = fileId;
     }
 
     public Profile() {
@@ -102,7 +103,6 @@ public class Profile {
     // public String getQuantity() {
     //     return quantity;
     // }
-
     // public void setQuantity(String quantity) {
     //     this.quantity = quantity;
     // }
@@ -112,7 +112,7 @@ public class Profile {
 
     public void setOriginal(String original) {
         this.original = original;
-    }   
+    }
 
     public String getOffical() {
         return offical;
@@ -156,13 +156,12 @@ public class Profile {
         return updated_at.format(formatter);
     }
 
-    public String getPdfFileId() {
-        return pdfFileId;
+    public List<String> getFileId() {
+        return fileId;
     }
 
-    public void setPdfFileId(String pdfFileId) {
-        this.pdfFileId = pdfFileId;
+    public void setFileId(List<String> fileId) {
+        this.fileId = fileId;
     }
 
 }
-
