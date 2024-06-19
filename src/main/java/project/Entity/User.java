@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "User")
 public class User {
+
     @Id
     private String _id;
     private String username;
@@ -32,12 +33,11 @@ public class User {
         this.isAdmin = false;
     }
 
-    public User(String _id, String username, String password, String id_user, String email, String fullName,
+    public User(String _id, String username, String password, String email, String fullName,
             Boolean isAdmin, String cccd, String phone, Boolean sex) {
         this._id = _id;
         this.username = username;
         this.password = password;
-        this.id_user = id_user;
         this.email = email;
         this.fullName = fullName;
         this.isAdmin = isAdmin != null ? isAdmin : false;
@@ -45,6 +45,8 @@ public class User {
         this.phone = phone;
         this.sex = sex;
     }
+
+    // Getters and setters for all fields
 
     public String get_id() {
         return _id;

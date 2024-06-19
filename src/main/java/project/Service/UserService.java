@@ -1,24 +1,42 @@
 package project.Service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import jakarta.annotation.PostConstruct;
 import project.Entity.User;
 import project.Repo.UserRepo;
 
 @Service
 public class UserService {
-
+    LocalDateTime now = LocalDateTime.now();
+    int year = now.getYear();
+    int lastTwoDigitsOfYear = year % 100;
     @Autowired
     private UserRepo repo;
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    private int idCounter;
+
+    @PostConstruct
+    public void initializeIdCounter() {
+        Query query = new Query();
+        long count = mongoTemplate.count(query, User.class);
+        idCounter = (int) count;
+    }
+
     public void saveOrUpdate(User user) {
+        idCounter++;
+        String id_user = String.format("NV%d%02d", lastTwoDigitsOfYear, idCounter);
+        user.setId_user(id_user);
+        System.out.println("DEBUG: Generated id_user = " + id_user);
         repo.save(user);
     }
 
