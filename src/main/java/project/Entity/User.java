@@ -18,6 +18,9 @@ public class User {
     private String email;
     private String fullName;
     private Boolean isAdmin;
+    private String cccd;
+    private String phone;
+    private Boolean sex;
 
     @CreatedDate
     private LocalDateTime created_at;
@@ -30,7 +33,7 @@ public class User {
     }
 
     public User(String _id, String username, String password, String id_user, String email, String fullName,
-            Boolean isAdmin) {
+            Boolean isAdmin, String cccd, String phone, Boolean sex) {
         this._id = _id;
         this.username = username;
         this.password = password;
@@ -38,6 +41,9 @@ public class User {
         this.email = email;
         this.fullName = fullName;
         this.isAdmin = isAdmin != null ? isAdmin : false;
+        this.cccd = cccd;
+        this.phone = phone;
+        this.sex = sex;
     }
 
     public String get_id() {
@@ -88,6 +94,22 @@ public class User {
         this.fullName = fullName;
     }
 
+    public String getcccd() {
+        return cccd;
+    }
+
+    public void setcccd(String cccd) {
+        this.cccd = cccd;
+    }
+
+    public String getphone() {
+        return phone;
+    }
+
+    public void setphone(String phone) {
+        this.phone = phone;
+    }
+
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -102,6 +124,14 @@ public class User {
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public Boolean getsex() {
+        return sex;
+    }
+
+    public void setsex(Boolean sex) {
+        this.sex = sex;
     }
 
     public String getFormattedCreatedAt() {
