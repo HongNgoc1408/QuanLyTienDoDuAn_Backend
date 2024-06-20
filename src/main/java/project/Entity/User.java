@@ -18,7 +18,7 @@ public class User {
     private String id_user;
     private String email;
     private String fullName;
-    private Boolean isAdmin;
+    private Role role;
     private String cccd;
     private String phone;
     private Boolean sex;
@@ -30,17 +30,17 @@ public class User {
     private LocalDateTime updated_at;
 
     public User() {
-        this.isAdmin = false;
+        this.role = Role.STAFF;
     }
 
     public User(String _id, String username, String password, String email, String fullName,
-            Boolean isAdmin, String cccd, String phone, Boolean sex) {
+            Role role, String cccd, String phone, Boolean sex) {
         this._id = _id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.fullName = fullName;
-        this.isAdmin = isAdmin != null ? isAdmin : false;
+        this.role = role != null ? role : Role.STAFF;
         this.cccd = cccd;
         this.phone = phone;
         this.sex = sex;
@@ -96,6 +96,14 @@ public class User {
         this.fullName = fullName;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String getcccd() {
         return cccd;
     }
@@ -120,14 +128,6 @@ public class User {
         return updated_at;
     }
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
     public Boolean getsex() {
         return sex;
     }
@@ -144,5 +144,9 @@ public class User {
     public String getFormattedUpdatedAt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return updated_at.format(formatter);
+    }
+
+    public enum Role {
+        ADMIN, MANAGER, STAFF
     }
 }

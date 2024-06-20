@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import project.Entity.User;
+import project.Entity.User.Role;
 import project.Repo.UserRepo;
 
 @Service
@@ -34,10 +35,22 @@ public class UserService {
 
     public void saveOrUpdate(User user) {
         idCounter++;
-        String id_user = String.format("NV%d%02d", lastTwoDigitsOfYear, idCounter);
+        String id_userPrefix = getIdPrefixForRole(user.getRole());
+        String id_user = String.format("%s%d%02d", id_userPrefix, lastTwoDigitsOfYear, idCounter);
         user.setId_user(id_user);
         System.out.println("DEBUG: Generated id_user = " + id_user);
         repo.save(user);
+    }
+
+    private String getIdPrefixForRole(Role role) {
+        switch (role) {
+            case ADMIN:
+                return "AD";
+            case MANAGER:
+                return "TP";
+            default:
+                return "NV";
+        }
     }
 
     public Iterable<User> listAll() {
@@ -69,4 +82,5 @@ public class UserService {
         query.addCriteria(Criteria.where("id_user").is(userId));
         return mongoTemplate.exists(query, User.class);
     }
+
 }
