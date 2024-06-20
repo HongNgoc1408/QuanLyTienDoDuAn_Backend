@@ -104,7 +104,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         User foundUser = userRepository.findByUsername(user.getUsername());
-        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) { 
+        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
             return ResponseEntity.ok(foundUser);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
