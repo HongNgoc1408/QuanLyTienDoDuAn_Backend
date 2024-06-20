@@ -11,11 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Progresses")
 public class Progress {
+
     @Id
     private String _id;
     private String title;
     private String description;
     private List<String> assignedTo;
+    private List<String> profileId;
     private String status;
     private String priority;
     private String start_date;
@@ -27,12 +29,13 @@ public class Progress {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Progress(String _id, String title, String description, List<String> assignedTo, String status,
+    public Progress(String _id, String title, String description, List<String> assignedTo, List<String> profileId, String status,
             String priority, String start_date, String end_date) {
         this._id = _id;
         this.title = title;
         this.description = description;
         this.assignedTo = assignedTo;
+        this.profileId = profileId;
         this.status = status;
         this.priority = priority;
         this.start_date = start_date;
@@ -72,6 +75,14 @@ public class Progress {
 
     public void setassignedTo(List<String> assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    public List<String> getprofileId() {
+        return profileId;
+    }
+
+    public void setprofileId(List<String> profileId) {
+        this.profileId = profileId;
     }
 
     public String getStatus() {
@@ -126,15 +137,16 @@ public class Progress {
 
     @Override
     public String toString() {
-        return "Progress{" +
-                "_id='" + _id + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", assignedTo='" + assignedTo + '\'' +
-                ", status='" + status + '\'' +
-                ", priority='" + priority + '\'' +
-                ", start_date='" + start_date + '\'' +
-                ", end_date='" + end_date + '\'' +
-                '}';
+        return "Progress{"
+                + "_id='" + _id + '\''
+                + ", title='" + title + '\''
+                + ", description='" + description + '\''
+                + ", assignedTo='" + assignedTo + '\''
+                + ", profileId='" + profileId + '\''
+                + ", status='" + status + '\''
+                + ", priority='" + priority + '\''
+                + ", start_date='" + start_date + '\''
+                + ", end_date='" + end_date + '\''
+                + '}';
     }
 }
