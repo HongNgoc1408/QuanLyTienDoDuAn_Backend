@@ -18,7 +18,7 @@ public class Progress {
     private String description;
     private String manager;
     private List<String> assignedTo;
-    private List<String> profileId;
+    private List<Profile> profileId;
     private String status;
     private String priority;
     private String start_date;
@@ -30,7 +30,7 @@ public class Progress {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Progress(String _id, String title, String description, String manager, List<String> assignedTo, List<String> profileId, String status,
+    public Progress(String _id, String title, String description, String manager, List<String> assignedTo, List<Profile> profileId, String status,
             String priority, String start_date, String end_date) {
         this._id = _id;
         this.title = title;
@@ -87,11 +87,11 @@ public class Progress {
         this.assignedTo = assignedTo;
     }
 
-    public List<String> getprofileId() {
+    public List<Profile> getprofileId() {
         return profileId;
     }
 
-    public void setprofileId(List<String> profileId) {
+    public void setprofileId(List<Profile> profileId) {
         this.profileId = profileId;
     }
 
