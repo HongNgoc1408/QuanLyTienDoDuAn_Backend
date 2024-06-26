@@ -30,7 +30,8 @@ public class Progress {
     @LastModifiedDate
     private LocalDateTime updated_at;
 
-    public Progress(String _id, String title, String description, String manager, List<String> assignedTo, List<Profile> profileId, String status,
+    public Progress(String _id, String title, String description, String manager, List<String> assignedTo,
+            List<Profile> profileId, String status,
             String priority, String start_date, String end_date) {
         this._id = _id;
         this.title = title;
@@ -45,6 +46,7 @@ public class Progress {
     }
 
     public Progress() {
+        this.created_at = LocalDateTime.now();
     }
 
     public String get_id() {
@@ -136,13 +138,19 @@ public class Progress {
     }
 
     public String getFormattedCreatedAt() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return created_at.format(formatter);
+        if (created_at != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return created_at.format(formatter);
+        }
+        return null;
     }
 
     public String getFormattedUpdatedAt() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return updated_at.format(formatter);
+        if (updated_at != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return updated_at.format(formatter);
+        }
+        return null;
     }
 
     @Override
