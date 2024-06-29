@@ -19,7 +19,6 @@ public class Profile {
     private String type;
     private String published_date;
     private String organ;
-    // private String quantity;
     private String original;
     private String offical;
     private String photo;
@@ -100,12 +99,6 @@ public class Profile {
         this.organ = organ;
     }
 
-    // public String getQuantity() {
-    //     return quantity;
-    // }
-    // public void setQuantity(String quantity) {
-    //     this.quantity = quantity;
-    // }
     public String getOriginal() {
         return original;
     }

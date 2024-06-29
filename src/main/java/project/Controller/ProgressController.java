@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,22 +14,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.Entity.Profile; // Import from project.Entity
 import project.Entity.Progress;
 import project.Service.ProgressServices;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/progress")
-
 public class ProgressController {
+
     @Autowired
     private ProgressServices progressServices;
 
     @PostMapping(value = "/add")
-    private String saveProgress(@RequestBody Progress progresss) {
-
-        progressServices.saveorUpdate(progresss);
-        return progresss.get_id();
+    private String saveProgress(@RequestBody Progress progress) {
+        progressServices.saveorUpdate(progress);
+        return progress.get_id();
     }
 
     @GetMapping(value = "/getall")
@@ -61,5 +62,13 @@ public class ProgressController {
     @GetMapping(value = "/user/{userId}")
     public List<Progress> getProgressByUserId(@PathVariable(name = "userId") String userId) {
         return progressServices.getProgressByUserId(userId);
+    }
+
+    @PatchMapping(value = "/editProfile/{progressId}/{profileId}")
+    private Progress editProfileInProgress(
+            @PathVariable(name = "progressId") String progressId,
+            @PathVariable(name = "profileId") String profileId,
+            @RequestBody Profile updatedProfile) {
+        return progressServices.updateProfileInProgress(progressId, profileId, updatedProfile);
     }
 }
