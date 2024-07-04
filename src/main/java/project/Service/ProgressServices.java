@@ -17,9 +17,9 @@ public class ProgressServices {
     @Autowired
     private ProgressRepo repo;
 
-    public void saveorUpdate(Progress progresses) {
-
-        repo.save(progresses);
+    public void saveorUpdate(Progress progress) {
+        progress.calculatePercentComplete();
+        repo.save(progress);
     }
 
     public Iterable<Progress> listAll() {

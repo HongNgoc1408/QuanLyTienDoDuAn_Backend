@@ -1,7 +1,9 @@
 package project.Entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -23,6 +25,7 @@ public class Progress {
     private String priority;
     private String start_date;
     private String end_date;
+    private Float percent;
 
     @CreatedDate
     private LocalDateTime created_at;
@@ -32,7 +35,7 @@ public class Progress {
 
     public Progress(String _id, String title, String description, String manager, List<String> assignedTo,
             List<Profile> profileId, String status,
-            String priority, String start_date, String end_date) {
+            String priority, String start_date, String end_date, Float percent) {
         this._id = _id;
         this.title = title;
         this.description = description;
@@ -43,6 +46,8 @@ public class Progress {
         this.priority = priority;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.percent = percent;
+        calculatePercentComplete();
     }
 
     public Progress() {
@@ -119,6 +124,9 @@ public class Progress {
 
     public void setStart_date(String start_date) {
         this.start_date = start_date;
+        if (start_date != null && end_date != null) {
+            calculatePercentComplete();
+        }
     }
 
     public String getEnd_date() {
@@ -127,6 +135,18 @@ public class Progress {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+        if (end_date != null) {
+            calculatePercentComplete();
+        }
+    }
+
+    public Float getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Float percent) {
+        this.percent = percent;
+
     }
 
     public LocalDateTime getCreated_at() {
@@ -153,6 +173,27 @@ public class Progress {
         return null;
     }
 
+    public void calculatePercentComplete() {
+        if (start_date != null && end_date != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate startDate = LocalDate.parse(start_date, formatter);
+            LocalDate endDate = LocalDate.parse(end_date, formatter);
+            LocalDate today = LocalDate.now();
+
+            long totalDays = ChronoUnit.DAYS.between(startDate, endDate);
+            long daysElapsed = ChronoUnit.DAYS.between(startDate, today);
+
+            if (totalDays > 0) {
+                float percentComplete = ((float) daysElapsed / totalDays) * 100;
+                this.percent = Math.min(100.0f, Math.round(percentComplete * 100.0f) / 100.0f);
+            } else {
+                this.percent = 100.0f;
+            }
+        } else {
+            this.percent = 0.0f;
+        }
+    }
+
     @Override
     public String toString() {
         return "Progress{"
@@ -165,6 +206,7 @@ public class Progress {
                 + ", priority='" + priority + '\''
                 + ", start_date='" + start_date + '\''
                 + ", end_date='" + end_date + '\''
+                + ", percent=" + percent
                 + '}';
     }
 }
